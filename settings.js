@@ -5,7 +5,7 @@ function convertToBool(text, fault = 'true') {
     return text === fault ? true : false;
 }
 module.exports = {
-SESSION_ID: process.env.SESSION_ID || "MALVIN-XD~J5ID3CyZ#sxC2_Yj8gGCB3fEFqrWAPEm2LdvhhPqvsEH5VCDdA1s",
+SESSION_ID: process.env.SESSION_ID || "MALVIN-XD~UtpX2BJJ#uxWsnB0xir24G0kqM94reF7j0XwwjPbhkrdxW3oJQ60",
 // add your Session Id ,session id starts with MALVIN-XD~
 
 PREFIX: process.env.PREFIX || ".",
@@ -23,7 +23,7 @@ STICKER_NAME: process.env.STICKER_NAME || "✦MALVIN-XD✦",
 CUSTOM_REACT_EMOJIS: process.env.CUSTOM_REACT_EMOJIS || "💝,💖,💗,❤️‍🔥,❤️‍🩹,❤️,🩷,🧡,💛,💚,💙,🩵,💜,🤎,🖤,🩶,🤍",
 // chose custom react emojis by yourself 
 
-DELETE_LINKS: process.env.DELETE_LINKS || "false",
+DELETE_LINKS: process.env.DELETE_LINKS || "true",
 // automatic delete links witho remove member 
 
 OWNER_NUMBER: process.env.OWNER_NUMBER || "263714757857",
@@ -32,7 +32,7 @@ OWNER_NUMBER: process.env.OWNER_NUMBER || "263714757857",
 OWNER_NAME: process.env.OWNER_NAME || "✦ᴍᴀʟᴠɪɴ ᴋɪɴɢ✦",
 // add bot owner name
 
-DESCRIPTION: process.env.DESCRIPTION || "> *© ᴘᴏᴡᴇʀᴇᴅ ʙʏ ✦ᴍᴀʟᴠɪɴ ᴛᴇᴄʜ ɪɴᴄ✦*",
+DESCRIPTION: process.env.DESCRIPTION || "> *© ᴘᴏᴡᴇʀᴇᴅ ʙʏ ✦ᴍᴀʟᴠɪɴ ᴋɪɴɢ ᴛᴇᴄʜ ɪɴᴄ✦*",
 // add bot owner name    
 
 ALIVE_IMG: process.env.ALIVE_IMG || "https://files.catbox.moe/bddvfr.jpg",
