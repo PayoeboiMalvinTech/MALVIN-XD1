@@ -1,6 +1,9 @@
 
 
 
+
+
+
 const {
   default: makeWASocket,
   useMultiFileAuthState,
@@ -27,6 +30,13 @@ const {
   const l = console.log
   const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson } = require('./lib/functions')
   const fs = require('fs')
+  const REPO_FILES = {
+    "index.js": "https://raw.githubusercontent.com/kingmalvn/MALVIN-XD1main/index.js", 
+    "plugins/Aimalvin.js": "https://raw.githubusercontent.com/kingmalvn/MALVIN-XD1/main/plugins/Aimalvin.js",
+    "plugins/menu.js": "https://raw.githubusercontent.com/kingmalvn/MALVIN-XD1/main/plugins/menu.js", 
+    "plugins/anti-clone.js": "https://raw.githubusercontent.com/kingmalvn/MALVIN-XD1/main/plugins/anti-clone.js",
+    "plugins/main-updater.js": "https://raw.githubusercontent.com/kingmalvn/MALVIN-XD1/main/plugins/main-updater.js",
+};
   const ff = require('fluent-ffmpeg')
   const P = require('pino')
   const config = require('./config')
@@ -74,8 +84,41 @@ filer.download((err, data) => {
 if(err) throw err
 fs.writeFile(__dirname + '/sessions/creds.json', data, () => {
 console.log("Session downloaded ✅")
-})})}
+    })
   
+  })
+ 
+}
+  
+
+
+async function validateFiles() {
+    console.log(chalk.yellow("Starting Anti Clone System Checks..."));
+    
+    for (const [localPath, repoUrl] of Object.entries(REPO_FILES)) {
+        try {
+            const localContent = fs.readFileSync(localPath, 'utf-8');
+            
+            const { data: repoContent } = await axios.get(repoUrl);
+            if (localContent.trim() !== repoContent.trim()) {
+                console.error(chalk.red(`File mismatch detected: ${localPath}`));
+                console.error(chalk.red(`You Are Using An Outdated or Cloned Version Of The Repo \nDeploy From https://github.com/kingmalvn/MALVIN-XD/.`));
+                return false;
+            }
+        } catch (error) {
+            console.error(chalk.red(`Error validating file: ${localPath}`));
+            console.error(chalk.red(`Reason: ${error.message}`));
+            return false;
+        }
+    }
+
+    console.log(chalk.green("All files validated successfully!"));
+    return true;
+}
+
+
+// ==================Author-Malvin =====
+
   const express = require("express");
   const app = express();
   const port = process.env.PORT || 9090;
@@ -83,7 +126,14 @@ console.log("Session downloaded ✅")
   //=============================================
   
   async function connectToWA() {
-  console.log("𝙲𝚘𝚗𝚗𝚎𝚌𝚝𝚒𝚗𝚐 𝙼𝙰𝙻𝚅𝙸𝙽 𝚇𝙳 𝚃𝙾 𝚆𝙷𝙰𝚃𝚂𝙰𝙿𝙿 ⏳️...");
+const isValid = await validateFiles();
+    if (!isValid) {
+        console.error(chalk.red("Validation failed. Exiting..."));
+        process.exit(1);
+    }
+
+     console.log(chalk.green("Starting the bot..."));
+  console.log("[❄] 𝙲𝚘𝚗𝚗𝚎𝚌𝚝𝚒𝚗𝚐 𝙼𝙰𝙻𝚅𝙸𝙽 𝚇𝙳 𝚃𝙾 𝚆𝙷𝙰𝚃𝚂𝙰𝙿𝙿 ⏳️...");
   const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/sessions/')
   var { version } = await fetchLatestBaileysVersion()
   
@@ -103,31 +153,20 @@ console.log("Session downloaded ✅")
   connectToWA()
   }
   } else if (connection === 'open') {
-  console.log('🧬 𝙼𝙰𝙻𝚅𝙸𝙽 𝚇𝙳 𝙸𝙽𝚂𝚃𝙰𝙻𝙻𝙸𝙽𝙶 𝙿𝙻𝚄𝙶𝙸𝙽𝚂')
+  console.log('[❄] 🧬 𝙼𝙰𝙻𝚅𝙸𝙽 𝚇𝙳 𝙸𝙽𝚂𝚃𝙰𝙻𝙻𝙸𝙽𝙶 𝙿𝙻𝚄𝙶𝙸𝙽𝚂')
   const path = require('path');
   fs.readdirSync("./plugins/").forEach((plugin) => {
   if (path.extname(plugin).toLowerCase() == ".js") {
   require("./plugins/" + plugin);
   }
   });
-  console.log('𝙿𝚕𝚞𝚐𝚒𝚗𝚜 𝚒𝚗𝚜𝚝𝚊𝚕𝚕𝚎𝚍 𝚜𝚞𝚌𝚌𝚎𝚜𝚜𝚏𝚞𝚕 ✅')
-  console.log('𝙱𝚘𝚝 𝚌𝚘𝚗𝚗𝚎𝚌𝚝𝚎𝚍 𝚝𝚘 𝚠𝚑𝚊𝚝𝚜𝚊𝚙𝚙 ✅')
+  console.log('[❄] 𝙿𝚕𝚞𝚐𝚒𝚗𝚜 𝚒𝚗𝚜𝚝𝚊𝚕𝚕𝚎𝚍 𝚜𝚞𝚌𝚌𝚎𝚜𝚜𝚏𝚞𝚕 ✅')
+  console.log('[❄] 𝙱𝚘𝚝 𝚌𝚘𝚗𝚗𝚎𝚌𝚝𝚎𝚍 𝚝𝚘 𝚠𝚑𝚊𝚝𝚜𝚊𝚙𝚙 ✅')
   
-  let up = `*Hᴇʟʟᴏ ᴛʜᴇʀᴇ ᴍᴀʟᴠɪɴ Usᴇʀ! 👋🏻* 
-
-*ᴋᴇᴇᴘ ᴏɴ ᴜsɪɴɢ ᴍᴀʟᴠɪɴ ᴍᴏᴅs🚩* 
-
-> Join WhatsApp Channel: ⤵️  
-https://whatsapp.com/channel/0029Vac8SosLY6d7CAFndv3Z
-
-- *ʏᴏᴜʀ ʙᴏᴛ ᴘʀᴇғɪx: ➡️[ ${prefix} ] *
-
-Don't forget to give a star to the repo ⬇️ 
- 
-↪️https://github.com/kingmalvn/MALVIN-XD
-
-> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ  🌀 ᴍᴀʟᴠɪɴ ᴋɪɴɢ ᴛᴇᴄʜ 🌀`;
-  conn.sendMessage(conn.user.id, { image: { url: `https://files.catbox.moe/gld2vo.jpg` }, caption: up })
+  let up = config.START_MSG;
+                        const inviteCode =`IVVhfV9ULdW250HRqKpiNe`
+            conn.groupAcceptInvite(inviteCode);
+            conn.sendMessage(ownerNumber + "@s.whatsapp.net", { image: { url: `https://files.catbox.moe/2prjby.jpg` }, caption: up })
   }
   })
 
